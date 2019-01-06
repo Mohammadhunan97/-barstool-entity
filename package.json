@@ -1,10 +1,10 @@
 {
   "name": "@barstool/entity",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --colors",
     "transpile": "./node_modules/.bin/babel src -d lib/  --presets es2015"
   },
   "keywords": [],

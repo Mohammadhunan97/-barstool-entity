@@ -1,6 +1,6 @@
-# V 0.1.1
+# V 0.1.7
 
-* Versions < 1 are marked as unstable releases of Barstool org libraries 
+* Versions < 1.0.0 are marked as unstable releases of Barstool org libraries 
 
 # A non-disruptive backend library for entity generation
 
