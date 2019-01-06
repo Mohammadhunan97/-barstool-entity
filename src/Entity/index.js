@@ -1,4 +1,4 @@
-import appRootPath from 'app-root-path';
+// import appRootPath from 'app-root-path';
 import mysql from 'mysql';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -45,7 +45,8 @@ class BarstoolEntity {
     if (customEntities) {
       this.entities = customEntities;
     } else {
-      this.entities = `${appRootPath.toString}/barstool.config.js`;
+      // this.entities = `${appRootPath.toString}/barstool.config.js`;
+      this.entities = `${process.cwd()}/barstool.config.js`;
     }
     if (customApp) {
       this.app = customApp;
