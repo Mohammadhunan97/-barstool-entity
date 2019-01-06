@@ -8,7 +8,8 @@ import {
   readOneItemRoute,
   updateOneEntityRoute,
   deleteOneEntityRoute
-} from '../routegenerators/';
+} from '../routegenerators';
+import { createTablesMapper } from '../sqlmethods';
 
 class BarstoolEntity {
   constructor(
@@ -34,17 +35,17 @@ class BarstoolEntity {
       this.connection = customConnection;
     } else {
       this.connection = mysql.createConnection({
-        host: host,
-        port: port,
+        host,
+        port,
         user: username,
-        password: password,
-        database: database
+        password,
+        database
       });
     }
     if (customEntities) {
       this.entities = customEntities;
     } else {
-      this.entities = appRootPath.toString + '/barstool.config.js';
+      this.entities = `${appRootPath.toString}/barstool.config.js`;
     }
     if (customApp) {
       this.app = customApp;
@@ -64,9 +65,7 @@ class BarstoolEntity {
       this.app.listen(this.port, err => {
         if (err) {
           console.log(
-            `Some error occurred while attempting to listen on ${
-              this.port
-            }. Error:\t ${err}`
+            `Some error occurred while attempting to listen on ${this.port}. Error:\t ${err}`
           );
         } else {
           console.log(`Listening on port ${this.port}`);
@@ -76,60 +75,18 @@ class BarstoolEntity {
       this.generateRoutes(this.entities.tables);
     }
   }
-  fieldFragmentMapper(columnName, type, nullable) {
-    if (type === 'Number' && nullable) return `${columnName} INT`;
 
-    if (type === 'Number' && !nullable) return `${columnName} INT NOT NULL`;
-
-    if (type === 'String' && nullable) return `${columnName} VARCHAR(255)`;
-
-    if (type === 'String' && !nullable)
-      return `${columnName} VARCHAR(255) NOT NULL`;
-  }
-  mapBarstoolTablesToSQLStatement() {
-    const sqlStatements = [];
-
-    let createTableStrings = ``;
-    // replace o^2 with lighter algorithm
-    entities.tables.forEach(table => {
-      let fields = ``;
-      table.columns.forEach((column, i) => {
-        const { columnName, type, nullable } = column;
-        let fragment;
-        table.columns.length - 1 === i
-          ? (fragment = `${this.fieldFragmentMapper(
-              columnName,
-              type,
-              nullable
-            )}`)
-          : (fragment = `${this.fieldFragmentMapper(
-              columnName,
-              type,
-              nullable
-            )},`);
-        fields += fragment;
-      });
-      const sqlCreateTableStatem = `CREATE TABLE IF NOT EXISTS ${
-        table.tableName
-      } (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ${fields} );`;
-      createTableStrings += sqlCreateTableStatem;
-      sqlStatements.push(createTableStrings);
-      createTableStrings = ``;
-    });
-    return sqlStatements;
-  }
   generateTables(connection) {
-    const sqlStatements = this.mapBarstoolTablesToSQLStatement();
+    const sqlStatements = createTablesMapper(this.entities);
     sqlStatements.forEach(statement => {
       connection.query(statement, (err, rows) => {
-        console.log({
-          err,
-          rows
-        });
+        if (err) console.log(err);
+        this.createTableRows = rows;
       });
     });
   }
-  generateRoutes = tables => {
+
+  generateRoutes(tables) {
     tables.forEach(table => {
       createOneItemRoute(this.app, table);
       readOneItemRoute(this.app, table.tableName);
@@ -137,7 +94,7 @@ class BarstoolEntity {
       updateOneEntityRoute(this.app, table);
       deleteOneEntityRoute(this.app, table.tableName);
     });
-  };
+  }
 }
 
 export default BarstoolEntity;

@@ -5,14 +5,16 @@ import {
   readOneItemRoute,
   updateOneEntityRoute,
   deleteOneEntityRoute
-} from './routegenerators/';
+} from './routegenerators';
 import {
   mapInsertNewEntityToSQLStatement,
   mapReadOneEntityToSQLStatement,
   mapReadAllEntitiesToSQLStatement,
   mapUpdateOneEntityToSQLStatement,
-  mapDeleteOneEntityToSQLStatement
-} from './sqlmethods/';
+  mapDeleteOneEntityToSQLStatement,
+  fieldFragmentMapper,
+  createTablesMapper
+} from './sqlmethods';
 
 export {
   Sum,
@@ -25,5 +27,7 @@ export {
   mapReadOneEntityToSQLStatement,
   mapReadAllEntitiesToSQLStatement,
   mapUpdateOneEntityToSQLStatement,
-  mapDeleteOneEntityToSQLStatement
+  mapDeleteOneEntityToSQLStatement,
+  fieldFragmentMapper,
+  createTablesMapper
 };
