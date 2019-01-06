@@ -8,11 +8,11 @@ const createTablesMapper = entities => {
   entities.tables.forEach(table => {
     let fields = ``;
     table.columns.forEach((column, i) => {
-      const { columnName, type, nullable } = column;
+      const { columnName, type, nullable, customStatement } = column;
       let fragment;
       table.columns.length - 1 === i
-        ? (fragment = `${fieldFragmentMapper(columnName, type, nullable)}`)
-        : (fragment = `${fieldFragmentMapper(columnName, type, nullable)},`);
+        ? (fragment = `${fieldFragmentMapper(columnName, type, nullable, customStatement)}`)
+        : (fragment = `${fieldFragmentMapper(columnName, type, nullable, customStatement)},`);
       fields += fragment;
     });
     const sqlCreateTableStatem = `CREATE TABLE IF NOT EXISTS ${

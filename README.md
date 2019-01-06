@@ -8,13 +8,11 @@
 # Steps left before Stable release of Version 1:
 * Try out the project on another product-grade application
 * Unit tests for every function
-* Add support for boolean and other sql datatypes
-* Should support auto increment on number datatype
 * Basic documentation
+* Should support custom statements
 
 # Steps for release 2:
 * Should support default values
 * Should support Regex
-* Should support custom statements
 * Should support custom fail messages
 * Should support custom regex fail messages

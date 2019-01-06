@@ -1,4 +1,6 @@
-const fieldFragmentMapper = (columnName, type, nullable) => {
+const fieldFragmentMapper = (columnName, type, nullable, customStatement) => {
+  if (customStatement) return customStatement;
+
   if (type === 'Number' && nullable) return `${columnName} INT`;
 
   if (type === 'Number' && !nullable) return `${columnName} INT NOT NULL`;
