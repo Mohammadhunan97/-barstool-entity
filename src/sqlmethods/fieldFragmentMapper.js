@@ -7,6 +7,18 @@ const fieldFragmentMapper = (columnName, type, nullable) => {
 
   if (type === 'String' && !nullable) return `${columnName} VARCHAR(255) NOT NULL`;
 
+  if (type === 'Boolean' && nullable) return `${columnName} BOOLEAN`;
+
+  if (type === 'Boolean' && !nullable) return `${columnName} BOOLEAN NOT NULL`;
+
+  if (type === 'Date' && nullable) return `${columnName} DATE`;
+
+  if (type === 'Date' && !nullable) return `${columnName} DATE NOT NULL`;
+
+  if (type === 'Timestamp' && nullable) return `${columnName} TIMESTAMP`;
+
+  if (type === 'Timestamp' && !nullable) return `${columnName} TIMESTAMP NOT NULL`;
+
   return null;
 };
 

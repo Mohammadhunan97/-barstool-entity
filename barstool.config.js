@@ -11,6 +11,13 @@ module.exports = {
         {
           columnName: 'quantity',
           type: 'Number'
+        },
+        {
+          columnName: 'today',
+          type: 'Date'
+          // type: 'Timestamp'
+          // dateValue: 'current',
+          // dateValue: ''
         }
       ]
     },
