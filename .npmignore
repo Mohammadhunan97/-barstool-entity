@@ -1,9 +1,13 @@
+/__test__/
 /app/
+/coverage/
 /node_modules/
 /src/
 .DS_Store
 .eslintrc.json
 .gitignore
 .npmignore
-barstool.config.js
 .prettierrc
+barstool.config.js
+jest.config.js
+yarn.error.log
