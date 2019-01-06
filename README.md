@@ -7,7 +7,6 @@
 
 # Steps left before Stable release of Version 1:
 * Try out the project on another product-grade application
-* Unit tests for every function
 * Basic documentation
 
 # Steps for release 2:

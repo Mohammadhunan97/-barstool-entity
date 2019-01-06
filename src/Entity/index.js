@@ -12,8 +12,14 @@ import {
 import { createTablesMapper } from '../sqlmethods';
 
 const barstoolPath = `${appRootPath.toString()}/barstool.config.js`;
-
 const barstoolEntities = require(barstoolPath);
+const newMySQLConnection = mysql.createConnection({
+  host,
+  port,
+  user: username,
+  password,
+  database
+});
 
 class BarstoolEntity {
   constructor(
@@ -35,33 +41,16 @@ class BarstoolEntity {
         this.app
         this.entities
     */
-    if (customConnection) {
-      this.connection = customConnection;
-    } else {
-      this.connection = mysql.createConnection({
-        host,
-        port,
-        user: username,
-        password,
-        database
-      });
-    }
-    if (customEntities) {
-      this.entities = customEntities;
-    } else {
-      this.entities = barstoolEntities;
-      console.log('bs ent', barstoolEntities);
-    }
-    if (customApp) {
-      this.app = customApp;
-    } else {
-      this.app = express();
-    }
-    if (customPort) {
-      this.port = customPort;
-    } else {
-      this.port = 7070;
-    }
+    customConnection
+      ? (this.connection = customConnection)
+      : (this.connection = newMySQLConnection);
+
+    customEntities ? (this.entities = customEntities) : (this.entities = barstoolEntities);
+
+    customApp ? (this.app = customApp) : (this.app = express());
+
+    customPort ? (this.port = customPort) : (this.port = 7070);
+
     this.generateTables(this.connection);
     if (shouldGenerateRoutes && needServer) {
       this.app.use(bodyParser.urlencoded({ extended: false }));
