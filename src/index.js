@@ -15,6 +15,7 @@ import {
   fieldFragmentMapper,
   createTablesMapper
 } from './sqlmethods';
+import BarstoolEntity from './Entity';
 
 export {
   Sum,
@@ -29,5 +30,6 @@ export {
   mapUpdateOneEntityToSQLStatement,
   mapDeleteOneEntityToSQLStatement,
   fieldFragmentMapper,
-  createTablesMapper
+  createTablesMapper,
+  BarstoolEntity
 };
