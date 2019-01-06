@@ -1,6 +1,6 @@
 import { mapUpdateOneEntityToSQLStatement } from '../sqlmethods/';
 
-const updateOneEntityRoute = (table, connection) => {
+const updateOneEntityRoute = (app, table, connection) => {
   routes.push({
     entity: table.tableName,
     route: `/${table.tableName}/update/:id`,

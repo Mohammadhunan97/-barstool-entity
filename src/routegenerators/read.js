@@ -2,7 +2,7 @@ import {
   mapReadAllEntitiesToSQLStatement,
   mapReadOneEntityToSQLStatement
 } from '../sqlmethods/';
-const readAllItemsRoute = (tableName, connection) => {
+const readAllItemsRoute = (app, tableName, connection) => {
   routes.push({
     entity: tableName,
     route: `/${tableName}`,

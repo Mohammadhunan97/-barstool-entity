@@ -1,6 +1,6 @@
 import { mapDeleteOneEntityToSQLStatement } from '../sqlmethods/';
 
-const deleteOneEntityRoute = (tableName, connection) => {
+const deleteOneEntityRoute = (app, tableName, connection) => {
   app.delete(`/${tableName}/delete/:id`, (req, res) => {
     const sqlStatement = mapDeleteOneEntityToSQLStatement(
       tableName,

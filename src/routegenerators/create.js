@@ -1,6 +1,6 @@
 import { mapInsertNewEntityToSQLStatement } from '../sqlmethods/';
 
-const createOneItemRoute = (table, connection) => {
+const createOneItemRoute = (app, table, connection) => {
   routes.push({
     entity: table.tableName,
     route: `/${table.tableName}/new`,
