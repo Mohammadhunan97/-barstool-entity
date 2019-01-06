@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "transpile": "./node_modules/.bin/babel src -d lib/  --presets es2015,react"
   },
   "keywords": [],
   "author": "",
