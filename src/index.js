@@ -15,8 +15,8 @@ import {
   fieldFragmentMapper,
   createTablesMapper
 } from './sqlmethods';
-import BarstoolEntity from './Entity';
 
+import { generateTables, generateRoutes, barstoolEntity } from './Entity/';
 export {
   Sum,
   createOneItemRoute,
@@ -31,5 +31,7 @@ export {
   mapDeleteOneEntityToSQLStatement,
   fieldFragmentMapper,
   createTablesMapper,
-  BarstoolEntity
+  generateTables,
+  generateRoutes,
+  barstoolEntity
 };
