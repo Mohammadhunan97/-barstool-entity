@@ -1,12 +1,12 @@
-import { mapInsertNewEntityToSQLStatement } from '../sqlmethods/';
+import { mapInsertNewEntityToSQLStatement } from '../sqlmethods';
 
 const createOneItemRoute = (app, table, connection) => {
-  routes.push({
-    entity: table.tableName,
-    route: `/${table.tableName}/new`,
-    type: 'POST',
-    description: `creates a new item in ${table.tableName} table`
-  });
+  // routes.push({
+  //   entity: table.tableName,
+  //   route: `/${table.tableName}/new`,
+  //   type: 'POST',
+  //   description: `creates a new item in ${table.tableName} table`
+  // });
   app.post(`/${table.tableName}/new`, (req, res) => {
     const values = Object.values(req.body);
     const requestKeys = Object.keys(req.body);
@@ -25,16 +25,10 @@ const createOneItemRoute = (app, table, connection) => {
         missingRequestValues: missingKeys
       });
     } else {
-      const sqlStatement = mapInsertNewEntityToSQLStatement(
-        table.tableName,
-        values,
-        keys
-      );
+      const sqlStatement = mapInsertNewEntityToSQLStatement(table.tableName, values, keys);
       connection.query(sqlStatement, (err, rows) => {
         if (err) res.send(err);
-        res
-          .status(200)
-          .send(`Successfully inserted new item in ${table.tableName} table`);
+        res.status(200).send(`Successfully inserted new item in ${table.tableName} table`);
       });
     }
   });

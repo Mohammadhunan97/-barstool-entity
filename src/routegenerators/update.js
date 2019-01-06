@@ -1,12 +1,12 @@
-import { mapUpdateOneEntityToSQLStatement } from '../sqlmethods/';
+import { mapUpdateOneEntityToSQLStatement } from '../sqlmethods';
 
 const updateOneEntityRoute = (app, table, connection) => {
-  routes.push({
-    entity: table.tableName,
-    route: `/${table.tableName}/update/:id`,
-    type: 'PUT',
-    description: `updates one item in ${table.tableName} based on request id`
-  });
+  // routes.push({
+  //   entity: table.tableName,
+  //   route: `/${table.tableName}/update/:id`,
+  //   type: 'PUT',
+  //   description: `updates one item in ${table.tableName} based on request id`
+  // });
   app.put(`/${table.tableName}/update/:id`, (req, res) => {
     const requestKeys = Object.keys(req.body);
     const requestValues = Object.values(req.body);

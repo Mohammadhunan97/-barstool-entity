@@ -46,7 +46,7 @@ class BarstoolEntity {
       this.entities = customEntities;
     } else {
       // this.entities = `${appRootPath.toString}/barstool.config.js`;
-      this.entities = `${process.cwd()}/barstool.config.js`;
+      // this.entities = givenEnitites;
     }
     if (customApp) {
       this.app = customApp;
@@ -77,6 +77,10 @@ class BarstoolEntity {
     }
   }
 
+  getEntities() {
+    return this.entities;
+  }
+
   generateTables(connection) {
     const sqlStatements = createTablesMapper(this.entities);
     sqlStatements.forEach(statement => {
@@ -89,11 +93,11 @@ class BarstoolEntity {
 
   generateRoutes(tables) {
     tables.forEach(table => {
-      createOneItemRoute(this.app, table);
-      readOneItemRoute(this.app, table.tableName);
-      readAllItemsRoute(this.app, table.tableName);
-      updateOneEntityRoute(this.app, table);
-      deleteOneEntityRoute(this.app, table.tableName);
+      createOneItemRoute(this.app, table, this.connection);
+      readOneItemRoute(this.app, table.tableName, this.connection);
+      readAllItemsRoute(this.app, table.tableName, this.connection);
+      updateOneEntityRoute(this.app, table, this.connection);
+      deleteOneEntityRoute(this.app, table.tableName, this.connection);
     });
   }
 }
