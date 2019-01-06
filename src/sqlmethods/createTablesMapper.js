@@ -17,7 +17,7 @@ const createTablesMapper = entities => {
     });
     const sqlCreateTableStatem = `CREATE TABLE IF NOT EXISTS ${
       table.tableName
-    } (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ${fields} );`;
+    } (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ${fields});`;
     createTableStrings += sqlCreateTableStatem;
     sqlStatements.push(createTableStrings);
     createTableStrings = ``;
