@@ -9,7 +9,6 @@
 * Try out the project on another product-grade application
 * Unit tests for every function
 * Basic documentation
-* Should support custom statements
 
 # Steps for release 2:
 * Should support default values
