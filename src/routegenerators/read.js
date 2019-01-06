@@ -1,4 +1,8 @@
-const readAllItemsRoute = tableName => {
+import {
+  mapReadAllEntitiesToSQLStatement,
+  mapReadOneEntityToSQLStatement
+} from '../sqlmethods/';
+const readAllItemsRoute = (tableName, connection) => {
   routes.push({
     entity: tableName,
     route: `/${tableName}`,
@@ -14,7 +18,7 @@ const readAllItemsRoute = tableName => {
   });
 };
 
-const readOneItemRoute = tableName => {
+const readOneItemRoute = (tableName, connection) => {
   routes.push({
     entity: tableName,
     route: `/${tableName}/:id`,
