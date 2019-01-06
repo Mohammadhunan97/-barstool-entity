@@ -6,6 +6,7 @@
 
 
 # Steps left before Stable release of Version 1:
+* Create an npmignore file
 * Try out the project on another product-grade application
 * Unit tests for every function
 * Add support for boolean and other sql datatypes
