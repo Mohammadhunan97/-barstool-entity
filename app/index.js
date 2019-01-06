@@ -1,16 +1,12 @@
 // this file and folder are used to test the app locally on your computer
+// const appRootPath = require('app-root-path');
 const barstool = require('../lib/');
-const given = require('../barstool.config');
+
+// const path = `${process.cwd()}/barstool.config`;
+// const given = require(path);
 
 const { BarstoolEntity } = barstool;
 
-const localDB = {
-  host: 'localhost',
-  username: 'root',
-  password: '',
-  database: 'barstooliandemolocal'
-};
-const db = localDB;
 // customConnection,
 // host,
 // port,
@@ -22,18 +18,17 @@ const db = localDB;
 // needServer,
 // customEntities,
 // customPort
+
 const bE1 = new BarstoolEntity(
   null,
-  db.host,
-  db.port,
-  db.username,
-  db.password,
-  db.database,
+  'localhost',
+  3306,
+  'root',
+  '',
+  'barstooliandemolocal',
   null,
   true,
   true,
-  given,
+  null,
   null
 );
-
-console.log('bsEntities', bE1.getEntities());

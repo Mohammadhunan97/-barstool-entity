@@ -1,4 +1,4 @@
-// import appRootPath from 'app-root-path';
+import appRootPath from 'app-root-path';
 import mysql from 'mysql';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -10,6 +10,10 @@ import {
   deleteOneEntityRoute
 } from '../routegenerators';
 import { createTablesMapper } from '../sqlmethods';
+
+const barstoolPath = `${appRootPath.toString()}/barstool.config.js`;
+
+const barstoolEntities = require(barstoolPath);
 
 class BarstoolEntity {
   constructor(
@@ -45,8 +49,8 @@ class BarstoolEntity {
     if (customEntities) {
       this.entities = customEntities;
     } else {
-      // this.entities = `${appRootPath.toString}/barstool.config.js`;
-      // this.entities = givenEnitites;
+      this.entities = barstoolEntities;
+      console.log('bs ent', barstoolEntities);
     }
     if (customApp) {
       this.app = customApp;
