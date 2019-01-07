@@ -25,7 +25,7 @@ const createOneItemRoute = (app, table, connection) => {
         missingRequestValues: missingKeys
       });
     } else {
-      const sqlStatement = mapInsertNewEntityToSQLStatement(table.tableName, values, keys);
+      const sqlStatement = mapInsertNewEntityToSQLStatement(table.tableName, values, requestKeys);
       connection.query(sqlStatement, (err, rows) => {
         if (err) res.send(err);
         res.status(200).send(`Successfully inserted new item in ${table.tableName} table`);

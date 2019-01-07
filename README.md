@@ -1,4 +1,4 @@
-# V 0.1.7
+# V 0.2.9
 
 * Versions < 1.0.0 are marked as unstable releases of Barstool org libraries 
 
@@ -14,3 +14,4 @@
 * Should support Regex
 * Should support custom fail messages
 * Should support custom regex fail messages
+* Add support for unique constraint
