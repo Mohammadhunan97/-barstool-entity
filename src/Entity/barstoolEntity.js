@@ -6,57 +6,9 @@ import { generateTables, generateRoutes } from './';
 const barstoolPath = `${appRootPath.toString()}/barstool.config.js`;
 const barstoolEntities = require(barstoolPath);
 
-// class BarstoolEntity {
-//   constructor(
-//     customConnection,
-//     host,
-//     port,
-//     username,
-//     password,
-//     database,
-//     customApp,
-//     shouldGenerateRoutes,
-//     needServer,
-//     customEntities,
-//     customPort
-//   ) {
-//     /*
-//         available variables in BarstoolEntity class
-//         this.connection
-//         this.app
-//         this.entities
-//     */
-//     customConnection
-//       ? (this.connection = customConnection)
-//       : (this.connection = newMySQLConnection);
+const mysqlCreateConnection = conn => {
+  const { host, port, user, password, database } = conn;
 
-//     customEntities ? (this.entities = customEntities) : (this.entities = barstoolEntities);
-
-//     customApp ? (this.app = customApp) : (this.app = express());
-
-//     customPort ? (this.port = customPort) : (this.port = 7070);
-
-//     this.generateTables(this.connection);
-//     if (shouldGenerateRoutes && needServer) {
-//       this.app.use(bodyParser.urlencoded({ extended: false }));
-//       this.app.use(bodyParser.json());
-//       this.generateRoutes(this.entities.tables);
-//       this.app.listen(this.port, err => {
-//         if (err) {
-//           console.log(
-//             `Some error occurred while attempting to listen on ${this.port}. Error:\t ${err}`
-//           );
-//         } else {
-//           console.log(`Listening on port ${this.port}`);
-//         }
-//       });
-//     } else if (shouldGenerateRoutes && !needServer) {
-//       this.generateRoutes(this.entities.tables);
-//     }
-//   }
-// }
-
-const mysqlCreateConnection = (host, port, user, password, database) => {
   return mysql.createConnection({
     host,
     port,
@@ -67,41 +19,31 @@ const mysqlCreateConnection = (host, port, user, password, database) => {
 };
 
 const barstoolEntity = (
-  customConnection,
-  host,
-  customSqlPort,
-  username,
-  password,
-  database,
+  conn,
   customApp,
   shouldGenerateRoutes,
-  needServer,
+  shouldCreateServer,
   customEntities,
   customServerPort
 ) => {
-  let connection, entities, app, port;
-
-  customConnection
-    ? (connection = customConnection)
-    : (connection = mysqlCreateConnection(host, customSqlPort, username, password, database));
-
-  customEntities ? (entities = customEntities) : (entities = barstoolEntities);
-
+  let connection, app, entities, port;
+  conn.host ? (connection = mysqlCreateConnection(conn)) : (connection = conn);
   customApp ? (app = customApp) : (app = express());
-
+  customEntities ? (entities = customEntities) : (entities = barstoolEntities);
   customServerPort ? (port = customServerPort) : (port = 7070);
+  generateTables(entities, connection);
 
-  const tablesResult = generateTables(entities, connection);
-
-  if (shouldGenerateRoutes && needServer) {
+  if (shouldGenerateRoutes && shouldCreateServer) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     const generatedRoutes = generateRoutes(app, connection, entities.tables);
     app.listen(port, err => {
       if (err) return `Error creating server: ${err}`;
+      return generatedRoutes;
     });
   } else if (shouldGenerateRoutes && !needServer) {
     const generatedRoutes = generateRoutes(app, connection, entities.tables);
+    return generatedRoutes;
   }
 };
 
