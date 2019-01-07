@@ -15,3 +15,4 @@
 * Should support custom fail messages
 * Should support custom regex fail messages
 * Add support for unique constraint
+* Should support basic encryption
