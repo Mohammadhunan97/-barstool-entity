@@ -3,8 +3,8 @@ import mysql from 'mysql';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { generateTables, generateRoutes } from './';
+
 const barstoolPath = `${appRootPath.toString()}/barstool.config.js`;
-const barstoolEntities = require(barstoolPath);
 
 const mysqlCreateConnection = conn => {
   const { host, port, user, password, database } = conn;
@@ -27,9 +27,18 @@ const barstoolEntity = (
   customServerPort
 ) => {
   let connection, app, entities, port;
+  if (customEntities) {
+    entities = customEntities;
+  } else {
+    try {
+      const barstoolEntities = require(barstoolPath);
+      entities = barstoolEntities;
+    } catch (err) {
+      return `No Barstool Entity and no custom entity given in path ${barstoolPath}`;
+    }
+  }
   conn.host ? (connection = mysqlCreateConnection(conn)) : (connection = conn);
   customApp ? (app = customApp) : (app = express());
-  customEntities ? (entities = customEntities) : (entities = barstoolEntities);
   customServerPort ? (port = customServerPort) : (port = 7070);
   generateTables(entities, connection);
 
