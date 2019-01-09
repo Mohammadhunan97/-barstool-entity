@@ -1,19 +1,18 @@
 // this file and folder are used to test the app locally on your computer
-// const appRootPath = require('app-root-path');
 const barstool = require('../lib/');
+const { barstoolEntity } = barstool;
 
-const { BarstoolEntity } = barstool;
-
-const bE1 = new BarstoolEntity(
-  null,
-  'localhost',
-  3306,
-  'root',
-  '',
-  'barstooliandemolocal',
-  null,
+barstoolEntity(
+  {
+    host: 'localhost',
+    port: 3306,
+    database: 'bs',
+    user: 'root',
+    password: ''
+  },
+  false,
   true,
   true,
-  null,
-  null
+  false,
+  false
 );

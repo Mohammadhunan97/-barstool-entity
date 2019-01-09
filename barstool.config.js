@@ -1,49 +1,15 @@
 module.exports = {
   tables: [
-    // should support boolean
     {
-      tableName: 'Foods',
-      columns: [
-        {
-          columnName: 'title',
-          type: 'String'
-        },
-        {
-          columnName: 'quantity',
-          type: 'Number'
-        },
-        {
-          columnName: 'today',
-          type: 'Date'
-          // type: 'Timestamp'
-          // dateValue: 'current',
-          // dateValue: ''
-        }
-      ]
-    },
-    {
-      tableName: 'Singers',
+      tableName: 'Team',
       columns: [
         {
           columnName: 'name',
-          type: 'String',
-          nullable: false
-          // customStatement: `title byte NOT NULL`
-          // default: 'Hello'
-          // regex:
-          // failsRegexCustomMessage:
-          // failsTypeCheckCustomMessage:
-        },
-        {
-          columnName: 'description',
-          type: 'String',
-          nullable: true
+          type: 'String'
         },
         {
           columnName: 'age',
-          type: 'Number',
-          nullable: true
-          // autoIncrement: true
+          type: 'Number'
         }
       ]
     }
