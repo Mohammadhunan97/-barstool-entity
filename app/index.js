@@ -2,22 +2,7 @@
 // const appRootPath = require('app-root-path');
 const barstool = require('../lib/');
 
-// const path = `${process.cwd()}/barstool.config`;
-// const given = require(path);
-
 const { BarstoolEntity } = barstool;
-
-// customConnection,
-// host,
-// port,
-// username,
-// password,
-// database,
-// customApp,
-// shouldGenerateRoutes,
-// needServer,
-// customEntities,
-// customPort
 
 const bE1 = new BarstoolEntity(
   null,
