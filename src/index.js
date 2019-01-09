@@ -1,4 +1,3 @@
-import Sum from './methods/sum';
 import {
   createOneItemRoute,
   readAllItemsRoute,
@@ -18,7 +17,6 @@ import {
 
 import { generateTables, generateRoutes, barstoolEntity } from './Entity/';
 export {
-  Sum,
   createOneItemRoute,
   readAllItemsRoute,
   readOneItemRoute,
