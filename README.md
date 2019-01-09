@@ -18,6 +18,8 @@
 - Should support custom regex fail messages
 - Add support for unique constraint
 - Should support basic encryption
+- Should support custom statements
+- Switch to connection pools
 
 # Test this library:
 
