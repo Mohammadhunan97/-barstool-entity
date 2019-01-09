@@ -26,28 +26,41 @@ const updateOneEntityRoute = (app, table, connection) => {
       }
     });
 
-    const sqlStatement = mapUpdateOneEntityToSQLStatement(
-      table.tableName,
-      validatedValues,
-      validatedKeys,
-      req.params.id
-    );
+    if (validatedKeys.length > 0) {
+      // if there is something valid to update
+      const sqlStatement = mapUpdateOneEntityToSQLStatement(
+        table.tableName,
+        validatedValues,
+        validatedKeys,
+        req.params.id
+      );
 
-    connection.query(sqlStatement, (err, rows) => {
-      if (err) res.send(err);
-
-      if (invalidRequest.length > 0 && rows.affectedRows > 0) {
-        res.json({
-          successfullyUpdatedRow: true,
-          invalidData: invalidRequest,
-          updatedDataFromValidRequest: validatedKeys
-        });
-      } else if (rows.affectedRows > 0) {
-        res.json({
-          successfullyUpdatedRow: true
-        });
-      }
-    });
+      connection.query(sqlStatement, (err, rows) => {
+        if (err) res.send(err);
+        if (invalidRequest.length > 0 && rows.affectedRows > 0) {
+          res.json({
+            successfullyUpdatedRow: true,
+            invalidData: invalidRequest,
+            updatedDataFromValidRequest: validatedKeys
+          });
+        } else if (rows.affectedRows > 0) {
+          res.json({
+            successfullyUpdatedRow: true
+          });
+        } else if (rows.affectedRows === 0) {
+          res.json({
+            successfullyUpdatedRow: false,
+            errorMessage: `Invalid request ID: ${req.params.id}`,
+            invalidRequestId: req.params.id
+          });
+        }
+      });
+    } else {
+      res.json({
+        errorMessage: 'No valid request data to update',
+        invalidData: invalidRequest
+      });
+    }
   });
 };
 

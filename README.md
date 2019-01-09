@@ -1,4 +1,4 @@
-# V 0.2.9
+# V 0.3.6
 
 - Versions < 1.0.0 are marked as unstable releases of Barstool org libraries
 
@@ -9,6 +9,7 @@
 - Try out the project on another product-grade application
 - Basic documentation
 - Preven SQL Injection
+- Type Checking
 
 # Steps for release 2:
 
@@ -20,6 +21,7 @@
 - Should support basic encryption
 - Should support custom statements
 - Switch to connection pools
+- Make post to mysql functions reusable even if you're not using express (express routes should just call these functions)
 
 # Test this library:
 
