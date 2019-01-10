@@ -1,4 +1,4 @@
-# V 0.3.6
+# V 0.3.7
 
 - Versions < 1.0.0 are marked as unstable releases of Barstool org libraries
 
@@ -8,7 +8,7 @@
 
 - Try out the project on another product-grade application
 - Basic documentation
-- Preven SQL Injection
+- Prevent SQL Injection
 - Type Checking
 
 # Steps for release 2:
