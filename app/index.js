@@ -1,6 +1,6 @@
 // this file and folder are used to test the app locally on your computer
 const barstool = require('../lib/');
-const { barstoolEntity } = barstool;
+const { BarstoolEntity } = barstool;
 const mysql = require('mysql');
 
 const conn = {
@@ -10,5 +10,5 @@ const conn = {
   user: 'root',
   password: ''
 };
-const bEnt = new barstoolEntity(conn, null, null, null);
+const bEnt = new BarstoolEntity(conn, null, null, null);
 bEnt.createServerAndRoutes();

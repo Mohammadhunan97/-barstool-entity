@@ -15,7 +15,13 @@ import {
   createTablesMapper
 } from './sqlmethods';
 
-import { generateTables, generateRoutes, barstoolEntity } from './Entity/';
+import {
+  generateTables,
+  generateRoutes,
+  BarstoolEntity,
+  retrieveEntitiesFromConfig,
+  createPool
+} from './Entity/';
 export {
   createOneItemRoute,
   readAllItemsRoute,
@@ -31,5 +37,7 @@ export {
   createTablesMapper,
   generateTables,
   generateRoutes,
-  barstoolEntity
+  BarstoolEntity,
+  retrieveEntitiesFromConfig,
+  createPool
 };

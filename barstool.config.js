@@ -1,7 +1,7 @@
 module.exports = {
   tables: [
     {
-      tableName: 'Team',
+      tableName: 'TennisPlayers',
       columns: [
         {
           columnName: 'name',

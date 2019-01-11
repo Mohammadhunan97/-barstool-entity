@@ -14,6 +14,11 @@ class BarstoolEntity {
       const retrievedEntities = retrieveEntitiesFromConfig();
       retrievedEntities.err ? retrievedEntities.errorMessage : (this.entities = retrievedEntities);
     }
+    const appEntities = this.entities;
+    this.pool.getConnection(function(err, connection) {
+      if (err) throw err; // not connected!
+      generateTables(appEntities, connection);
+    });
   }
   createServerAndRoutes() {
     this.app.use(bodyParser.urlencoded({ extended: false }));
