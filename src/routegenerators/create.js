@@ -1,5 +1,6 @@
 import { mapInsertNewEntityToSQLStatement } from '../sqlmethods';
 import mysql from 'mysql';
+
 const createOneItemRoute = (app, table, connection) => {
   app.post(`/${table.tableName}/new`, (req, res) => {
     const requestValues = Object.values(req.body);

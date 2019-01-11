@@ -1,8 +1,10 @@
 import { mapDeleteOneEntityToSQLStatement } from '../sqlmethods';
+import mysql from 'mysql';
 
 const deleteOneEntityRoute = (app, tableName, connection) => {
   app.delete(`/${tableName}/delete/:id`, (req, res) => {
-    const sqlStatement = mapDeleteOneEntityToSQLStatement(tableName, req.params.id);
+    const escapedId = mysql.escape(req.params.id);
+    const sqlStatement = mapDeleteOneEntityToSQLStatement(tableName, escapedId);
     connection.query(sqlStatement, (err, rows) => {
       if (err) res.send(err);
       if (rows.affectedRows > 0) {
