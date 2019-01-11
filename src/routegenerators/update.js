@@ -3,6 +3,16 @@ import mysql from 'mysql';
 
 const updateOneEntityRoute = (app, table, connection) => {
   app.put(`/${table.tableName}/update/:id`, (req, res) => {
+    console.log(Number(req.params.id));
+    if (isNaN(Number(req.params.id))) {
+      const errorResponse = {
+        errorMessage: `request id ${req.params.id} is not a number`,
+        invalidRequestId: req.params.id
+      };
+      res.json(errorResponse);
+      return errorResponse;
+    }
+
     const requestKeys = Object.keys(req.body);
     const requestValues = Object.values(req.body);
     const barstoolKeys = table.columns.map(column => column.columnName);
