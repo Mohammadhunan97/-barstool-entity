@@ -1,5 +1,4 @@
 import { mapInsertNewEntityToSQLStatement } from '../sqlmethods';
-import create from '../sqlexecute/create';
 import mysql from 'mysql';
 const createOneItemRoute = (app, table, connection) => {
   app.post(`/${table.tableName}/new`, (req, res) => {
@@ -21,7 +20,6 @@ const createOneItemRoute = (app, table, connection) => {
       if (keys.includes(reqKey)) {
         // if the request key is infact a key we need, we will need to put that key and its value in the respective 'validKeys' and 'validValues' arrays.
         validValues.push(mysql.escape(requestValues[i])); // we have to escape this because it is a value that is from the client and we don't have anything to match it to
-        console.log(mysql.escape(requestValues[i]));
         validKeys.push(reqKey); // we don't have to escape this because it is matched to the barstool keys which we know are not malicious
       } else {
         extraKeys.push(reqKey);
