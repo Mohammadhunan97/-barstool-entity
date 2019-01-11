@@ -1,4 +1,4 @@
-# V 0.3.7
+# V 0.3.8
 
 - Versions < 1.0.0 are marked as unstable releases of Barstool org libraries
 
