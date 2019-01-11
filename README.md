@@ -22,6 +22,7 @@
 - Should support custom statements
 - Switch to connection pools
 - Make post to mysql functions reusable even if you're not using express (express routes should just call these functions)
+- add callbacks to be passed to the routes
 
 # Test this library:
 
