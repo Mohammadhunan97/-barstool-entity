@@ -1,12 +1,7 @@
 import { mapUpdateOneEntityToSQLStatement } from '../sqlmethods';
+import mysql from 'mysql';
 
 const updateOneEntityRoute = (app, table, connection) => {
-  // routes.push({
-  //   entity: table.tableName,
-  //   route: `/${table.tableName}/update/:id`,
-  //   type: 'PUT',
-  //   description: `updates one item in ${table.tableName} based on request id`
-  // });
   app.put(`/${table.tableName}/update/:id`, (req, res) => {
     const requestKeys = Object.keys(req.body);
     const requestValues = Object.values(req.body);
@@ -21,8 +16,8 @@ const updateOneEntityRoute = (app, table, connection) => {
           value: requestValues[i]
         });
       } else {
-        validatedKeys.push(requestKey);
-        validatedValues.push(requestValues[i]);
+        validatedKeys.push(requestKey); // we don't have to escape this because it is matched to the barstool keys which we know are not malicious
+        validatedValues.push(mysql.escape(requestValues[i])); // we have to escape this because it is a value that is from the client and we don't have anything to match it to
       }
     });
 

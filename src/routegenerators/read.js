@@ -1,12 +1,7 @@
 import { mapReadAllEntitiesToSQLStatement, mapReadOneEntityToSQLStatement } from '../sqlmethods';
+import mysql from 'mysql';
 
 const readAllItemsRoute = (app, tableName, connection) => {
-  // routes.push({
-  //   entity: tableName,
-  //   route: `/${tableName}`,
-  //   type: 'GET',
-  //   description: `retrieves all ${tableName}`
-  // });
   app.get(`/${tableName}`, (req, res) => {
     const sqlStatement = mapReadAllEntitiesToSQLStatement(tableName);
     connection.query(sqlStatement, (err, rows) => {
@@ -17,14 +12,9 @@ const readAllItemsRoute = (app, tableName, connection) => {
 };
 
 const readOneItemRoute = (app, tableName, connection) => {
-  // routes.push({
-  //   entity: tableName,
-  //   route: `/${tableName}/:id`,
-  //   type: 'GET',
-  //   description: `retrieves one ${tableName} based on request id`
-  // });
   app.get(`/${tableName}/:id`, (req, res) => {
-    const sqlStatement = mapReadOneEntityToSQLStatement(tableName, req.params.id);
+    const escapedId = mysql.escape(req.params.id);
+    const sqlStatement = mapReadOneEntityToSQLStatement(tableName, escapedId);
     connection.query(sqlStatement, (err, rows) => {
       if (err) res.send(err);
       if (rows.length > 0) {
