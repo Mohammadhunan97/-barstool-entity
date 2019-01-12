@@ -21,7 +21,6 @@ class BarstoolEntity {
     });
   }
   createServerAndRoutes() {
-    this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(bodyParser.json());
     const generatedRoutes = this.createRoutes(this.app, this.entities.tables);
     this.app.listen(this.port, err => {

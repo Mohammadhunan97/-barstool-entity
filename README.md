@@ -10,6 +10,7 @@
 - Basic documentation
 - Prevent SQL Injection [DONE]
 - Type Checking
+- Only accepts application/json
 
 # Steps for release 2:
 

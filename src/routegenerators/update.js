@@ -1,9 +1,19 @@
 import { mapUpdateOneEntityToSQLStatement } from '../sqlmethods';
+import { matchTypesToConfig } from '../Entity/';
 import mysql from 'mysql';
 
 const updateOneEntityRoute = (app, table, connection) => {
   app.put(`/${table.tableName}/update/:id`, (req, res) => {
-    console.log(Number(req.params.id));
+    if (Object.keys(req.body).length === 0) {
+      res.json({
+        errorMessage: 'Improper request body, check if you are submitting application/json',
+        invalidRequestBody: req.body
+      });
+      return {
+        errorMessage: 'Improper request body, check if you are submitting application/json',
+        invalidRequestBody: req.body
+      };
+    }
     if (isNaN(Number(req.params.id))) {
       const errorResponse = {
         errorMessage: `request id ${req.params.id} is not a number`,
@@ -16,6 +26,8 @@ const updateOneEntityRoute = (app, table, connection) => {
     const requestKeys = Object.keys(req.body);
     const requestValues = Object.values(req.body);
     const barstoolKeys = table.columns.map(column => column.columnName);
+    const barstoolTypes = table.columns.map(column => column.type);
+
     const validatedKeys = [];
     const validatedValues = [];
     const invalidRequest = [];
@@ -26,8 +38,20 @@ const updateOneEntityRoute = (app, table, connection) => {
           value: requestValues[i]
         });
       } else {
-        validatedKeys.push(requestKey); // we don't have to escape this because it is matched to the barstool keys which we know are not malicious
-        validatedValues.push(mysql.escape(requestValues[i])); // we have to escape this because it is a value that is from the client and we don't have anything to match it to
+        const matchedIndex = barstoolKeys.indexOf(requestKey);
+        if (matchTypesToConfig(typeof requestValues[i], barstoolTypes[matchedIndex])) {
+          // if it is the correct type as well
+          validatedKeys.push(requestKey); // we don't have to escape this because it is matched to the barstool keys which we know are not malicious
+          validatedValues.push(mysql.escape(requestValues[i])); // we have to escape this because it is a value that is from the client and we don't have anything to match it to
+        } else {
+          invalidRequest.push({
+            key: requestKey,
+            value: requestValues[i],
+            errorMessage: `Incorrect type given, ${
+              barstoolTypes[matchedIndex]
+            } needed but ${typeof requestValues[i]} given`
+          });
+        }
       }
     });
 
