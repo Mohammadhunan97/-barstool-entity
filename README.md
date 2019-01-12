@@ -11,6 +11,7 @@
 - Prevent SQL Injection [DONE]
 - Type Checking
 - Only accepts application/json
+- Should check that barstool config is written properly
 
 # Steps for release 2:
 
