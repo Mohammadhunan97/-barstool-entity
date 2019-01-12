@@ -1,4 +1,4 @@
-# V 0.4.0
+# V 0.4.1
 
 - Versions < 1.0.0 are marked as unstable releases of Barstool org libraries
 
@@ -9,8 +9,8 @@
 - Try out the project on another product-grade application
 - Basic documentation
 - Prevent SQL Injection [DONE]
-- Type Checking
-- Only accepts application/json
+- Type Checking [DONE]
+- Only accepts application/json [DONE]
 - Should check that barstool config is written properly
 
 # Steps for release 2:
