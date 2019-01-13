@@ -1,5 +1,6 @@
 import { mapInsertNewEntityToSQLStatement } from '../sqlmethods';
 import { matchTypesToConfig } from '../Entity/';
+import { matchRegexToConfig } from '../matchers/';
 import mysql from 'mysql';
 
 const createOneItemRoute = (app, table, connection) => {
@@ -18,6 +19,7 @@ const createOneItemRoute = (app, table, connection) => {
     const requestKeys = Object.keys(req.body);
     const keys = table.columns.map(item => item.columnName); // barstool keys
     const barstoolTypes = table.columns.map(column => column.type);
+    const barstoolRegex = table.columns.map(column => column.regex || null);
     const missingKeys = [];
     const extraKeys = [];
     const validKeys = [];
@@ -33,16 +35,50 @@ const createOneItemRoute = (app, table, connection) => {
       if (keys.includes(reqKey)) {
         const matchedIndex = keys.indexOf(reqKey);
         // if the request key is infact a key we need, we will need to put that key and its value in the respective 'validKeys' and 'validValues' arrays.
-        if (matchTypesToConfig(typeof requestValues[i], barstoolTypes[matchedIndex])) {
-          validValues.push(mysql.escape(requestValues[i])); // we have to escape this because it is a value that is from the client and we don't have anything to match it to
-          validKeys.push(reqKey); // we don't have to escape this because it is matched to the barstool keys which we know are not malicious
-        } else {
-          missingKeys.push({
+        if (
+          !matchTypesToConfig(typeof requestValues[i], barstoolTypes[matchedIndex]) &&
+          !matchRegexToConfig(barstoolRegex[matchedIndex], requestValues[i])
+        ) {
+          let error = [
+            {
+              key: reqKey,
+              errorMessage: `Incorrect type given, ${
+                barstoolTypes[matchedIndex]
+              } needed but ${typeof requestValues[i]} given`
+            },
+            {
+              key: reqKey,
+              errorMessage: `Incorrect value given, value ${
+                requestValues[i]
+              } must value regex required: ${barstoolRegex[matchedIndex]}`
+            }
+          ];
+          missingKeys.push(error);
+        } else if (
+          !matchTypesToConfig(typeof requestValues[i], barstoolTypes[matchedIndex]) &&
+          matchRegexToConfig(barstoolRegex[matchedIndex], requestValues[i])
+        ) {
+          let error = {
             key: reqKey,
             errorMessage: `Incorrect type given, ${
               barstoolTypes[matchedIndex]
             } needed but ${typeof requestValues[i]} given`
-          });
+          };
+          missingKeys.push(error);
+        } else if (
+          matchTypesToConfig(typeof requestValues[i], barstoolTypes[matchedIndex]) &&
+          !matchRegexToConfig(barstoolRegex[matchedIndex], requestValues[i])
+        ) {
+          let error = {
+            key: reqKey,
+            errorMessage: `Incorrect value given, value ${
+              requestValues[i]
+            } must value regex required: ${barstoolRegex[matchedIndex]}`
+          };
+          missingKeys.push(error);
+        } else {
+          validValues.push(mysql.escape(requestValues[i])); // we have to escape this because it is a value that is from the client and we don't have anything to match it to
+          validKeys.push(reqKey); // we don't have to escape this because it is matched to the barstool keys which we know are not malicious
         }
       } else {
         extraKeys.push(reqKey);
