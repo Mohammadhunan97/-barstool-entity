@@ -1,4 +1,4 @@
-# V 0.4.1
+# V 0.4.2
 
 - Versions < 1.0.0 are marked as unstable releases of Barstool org libraries
 
@@ -13,7 +13,7 @@
 - Only accepts application/json [DONE]
 - Should support Regex [DONE]
 - Switch to connection pools [DONE]
-- Should check that barstool config is written properly
+- Should check that barstool config is written properly [DONE]
 
 # Steps for release 2:
 
