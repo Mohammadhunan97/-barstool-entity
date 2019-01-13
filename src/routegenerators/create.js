@@ -91,7 +91,6 @@ const createOneItemRoute = (app, table, connection) => {
         missingRequestValues: missingKeys
       });
     } else {
-      const tableName = table.tableName;
       const sqlStatement = mapInsertNewEntityToSQLStatement(
         table.tableName,
         validValues,
