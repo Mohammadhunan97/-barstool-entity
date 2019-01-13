@@ -11,4 +11,9 @@ const conn = {
   password: ''
 };
 const bEnt = new BarstoolEntity(conn, null, null, null);
-bEnt.createServerAndRoutes();
+
+if (bEnt.createServerAndRoutes) {
+  bEnt.createServerAndRoutes();
+} else {
+  console.log(bEnt);
+}

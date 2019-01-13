@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { generateTables, generateRoutes, retrieveEntitiesFromConfig, createPool } from './';
+import matchConfig from '../matchers/matchConfig';
 
 class BarstoolEntity {
   // methods in barstoolEnt should only be created if they are used in the client, not within methods
@@ -14,6 +15,10 @@ class BarstoolEntity {
       const retrievedEntities = retrieveEntitiesFromConfig();
       retrievedEntities.err ? retrievedEntities.errorMessage : (this.entities = retrievedEntities);
     }
+    if (!matchConfig(this.entities).matched) {
+      return matchConfig(this.entities);
+    }
+
     const appEntities = this.entities;
     this.pool.getConnection(function(err, connection) {
       if (err) throw err; // not connected!

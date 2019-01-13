@@ -50,7 +50,7 @@ const createOneItemRoute = (app, table, connection) => {
               key: reqKey,
               errorMessage: `Incorrect value given, value ${
                 requestValues[i]
-              } must value regex required: ${barstoolRegex[matchedIndex]}`
+              } must match regex statement: ${barstoolRegex[matchedIndex]}`
             }
           ];
           missingKeys.push(error);
@@ -73,7 +73,7 @@ const createOneItemRoute = (app, table, connection) => {
             key: reqKey,
             errorMessage: `Incorrect value given, value ${
               requestValues[i]
-            } must value regex required: ${barstoolRegex[matchedIndex]}`
+            } must match regex statement: ${barstoolRegex[matchedIndex]}`
           };
           missingKeys.push(error);
         } else {
