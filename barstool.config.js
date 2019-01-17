@@ -1,15 +1,18 @@
 module.exports = {
   tables: [
     {
-      tableName: 'TennisPlayers',
+      tableName: 'BasketballPlayers',
+      routesNeeded: ['create', 'read-one', 'read-all', 'update', 'delete'],
       columns: [
         {
-          columnName: 'name',
-          type: 'String'
+          columnName: 'username',
+          type: 'String',
+          customStatement: 'username VARCHAR(255) unique'
         },
         {
           columnName: 'age',
-          type: 'Number'
+          type: 'Number',
+          nullable: true
         },
         {
           columnName: 'phoneNumber',
