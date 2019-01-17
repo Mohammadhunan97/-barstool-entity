@@ -1,4 +1,4 @@
-# V 0.4.3
+# V 0.4.5
 
 - Versions < 1.0.0 are marked as unstable releases of Barstool org libraries
 
@@ -8,14 +8,14 @@
 
 - Try out the project on another product-grade application
 - Basic documentation
-- Prevent SQL Injection [DONE]
-- Type Checking [DONE]
-- Only accepts application/json [DONE]
-- Switch to connection pools [DONE]
-- Should check that barstool config is written properly [DONE]
+- Prevent SQL Injection [ DONE ]
+- Type Checking [ DONE ]
+- Only accepts application/json [ DONE ]
+- Switch to connection pools [ DONE ]
+- Should check that barstool config is written properly [ DONE ]
 - Should be able to choose which routes you want from C.R.U.D [ DONE ]
-- Support Regex [DONE]
-- Support custom statements [DONE]
+- Support Regex [ DONE ]
+- Support custom statements [ DONE ]
 - Support for unique constraint through custom statements [ DONE ]
 
 # Steps for release 2:
