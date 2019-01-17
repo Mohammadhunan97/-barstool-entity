@@ -28,7 +28,8 @@ const matchConfig = config => {
   });
 
   types.forEach(type => {
-    if (!properTypes.includes(type)) {
+    if (typeof type !== 'object' && !properTypes.includes(type)) {
+      console.log(type + ' is incorrect');
       typesAreCorrect = false;
     }
   });
