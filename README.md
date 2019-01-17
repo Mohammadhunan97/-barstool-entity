@@ -1,4 +1,4 @@
-# V 0.4.2
+# V 0.4.3
 
 - Versions < 1.0.0 are marked as unstable releases of Barstool org libraries
 
@@ -11,22 +11,28 @@
 - Prevent SQL Injection [DONE]
 - Type Checking [DONE]
 - Only accepts application/json [DONE]
-- Should support Regex [DONE]
 - Switch to connection pools [DONE]
 - Should check that barstool config is written properly [DONE]
+- Should be able to choose which routes you want from C.R.U.D [ DONE ]
+- Support Regex [DONE]
+- Support custom statements [DONE]
+- Support for unique constraint through custom statements [ DONE ]
 
 # Steps for release 2:
 
-- Should support default values
-- Should support custom fail messages
-- Should support custom regex fail messages
-- Add support for unique constraint
-- Should support basic encryption
-- Should support custom statements
-- add callbacks to be passed to the routes
+Functional:
+
+- Support default values
+- Support custom fail messages
+- Support custom regex fail messages
+- Support for unique constraint through config
+- Support basic encryption
+- Support callbacks to be passed to the routes
+- Support on/off option in config for updatability with invalid data passed in as a parameter
+
+Code revision:
+
 - Make query to mysql functions reusable (express routes should just call these functions)
-- Should be able to choose which routes you want from C.R.U.D
-- Allow option for choosing if you want to allow client to update with some invalid data
 
 # Test this library:
 

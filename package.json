@@ -1,6 +1,6 @@
 {
   "name": "@barstool/entity",
-  "version": "0.4.2",
+  "version": "0.4.5",
   "description": "JS Rapid App Development Library",
   "main": "lib/index.js",
   "scripts": {
