@@ -22,6 +22,7 @@ const createTablesMapper = entities => {
     sqlStatements.push(createTableStrings);
     createTableStrings = ``;
   });
+
   return sqlStatements;
 };
 

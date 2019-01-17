@@ -1,6 +1,14 @@
 const fieldFragmentMapper = (columnName, type, nullable, customStatement) => {
   if (customStatement) return customStatement;
 
+  if (typeof type === 'object' && type.sqlType === 'Foreign Key') {
+    return `${fieldFragmentMapper(
+      columnName,
+      type.dataType,
+      nullable
+    )},FOREIGN KEY (${columnName}) REFERENCES ${type.on}(${type.references})`;
+  }
+
   if (type === 'Number' && nullable) return `${columnName} INT`;
 
   if (type === 'Number' && !nullable) return `${columnName} INT NOT NULL`;

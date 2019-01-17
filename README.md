@@ -17,6 +17,7 @@
 - Support Regex [ DONE ]
 - Support custom statements [ DONE ]
 - Support for unique constraint through custom statements [ DONE ]
+- Support foreign key through custom statements
 
 # Steps for release 2:
 
@@ -29,6 +30,7 @@ Functional:
 - Support basic encryption
 - Support callbacks to be passed to the routes
 - Support on/off option in config for updatability with invalid data passed in as a parameter
+- Support foreign key through config
 
 Code revision:
 
